@@ -1,6 +1,9 @@
 #This follows the player, and allows them to guess
 
-class player():
+class Player():
+
+    def __init__(self):
+        pass
 
     def keep_playing():
         pass
