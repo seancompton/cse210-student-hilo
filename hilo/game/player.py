@@ -14,16 +14,41 @@ class Player():
         if self.score < 0:
             self.end_game = False
         else:
-            self.user_decision = input("Would you like to keep playing(y/n)? ")
-            if self.user_decision == "y":
-                pass
-            else:
-                self.end_game = False
+            invalid_input = True
+            while invalid_input:
+                try:
+                    self.user_decision = input("Would you like to keep playing(y/n)? ")
+                    if self.user_decision.lower() == "y":
+                        invalid_input = False
+                    elif self.user_decision.lower() == "n":
+                        invalid_input = False
+                        self.end_game = False
+                    else:
+                        print("You have entered an invalid input. ")
+                        invalid_input = True
+                except:
+                    print("Error: Please enter a valid input.")
         return self.end_game
                 
 
     def player_guess(self):
-        self.user_decision = input("Higher or lower(h/l)? ")
+        invalid_input = True
+        while invalid_input:
+            try:
+                user_input = input("Higher or lower(h/l)? ")
+                if user_input.lower() == "h":
+                    self.user_decision = user_input
+                    invalid_input = False
+                    return self.user_decision
+                elif user_input.lower() == "l":
+                    self.user_decision = user_input
+                    invalid_input = False
+                    return self.user_decision
+                else:
+                    print("You have entered an invalid input. ")
+                    invalid_input = True
+            except:
+                print("Error: Please enter a valid input. ")
 
     def calculate_score(self):
         self.old_card = self.new_card
@@ -33,7 +58,7 @@ class Player():
                 self.score = self.score + 100
             else:
                 self.score = self.score - 75
-        else:
+        elif self.user_decision.lower() == "l":
             if self.new_card < self.old_card:
                 self.score = self.score + 100
             else:
