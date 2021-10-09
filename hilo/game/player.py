@@ -9,25 +9,29 @@ class Player():
         self.new_card = 0
         self.user_decision = ""
         self.end_game = True
+        self.first_turn = True
 
     def keep_playing(self):
         if self.score < 0:
             self.end_game = False
         else:
-            invalid_input = True
-            while invalid_input:
-                try:
-                    self.user_decision = input("Would you like to keep playing(y/n)? ")
-                    if self.user_decision.lower() == "y":
-                        invalid_input = False
-                    elif self.user_decision.lower() == "n":
-                        invalid_input = False
-                        self.end_game = False
-                    else:
-                        print("You have entered an invalid input. ")
-                        invalid_input = True
-                except:
-                    print("Error: Please enter a valid input.")
+            if not self.first_turn:
+                invalid_input = True
+                while invalid_input:
+                    try:
+                        self.user_decision = input("Would you like to keep playing(y/n)? ")
+                        if self.user_decision.lower() == "y":
+                            invalid_input = False
+                        elif self.user_decision.lower() == "n":
+                            invalid_input = False
+                            self.end_game = False
+                        else:
+                            print("You have entered an invalid input. ")
+                            invalid_input = True
+                    except:
+                        print("Error: Please enter a valid input.")
+            else:
+                self.first_turn = False
         return self.end_game
                 
 
@@ -52,7 +56,11 @@ class Player():
 
     def calculate_score(self):
         self.old_card = self.new_card
-        self.new_card = random.randint(1,14)
+        copy = True
+        while copy:
+            self.new_card = random.randint(1,14)
+            if self.new_card != self.old_card:
+                copy = False
         if self.user_decision.lower() == "h":
             if self.new_card > self.old_card:
                 self.score = self.score + 100
