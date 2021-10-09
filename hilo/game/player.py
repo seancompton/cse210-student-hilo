@@ -40,11 +40,12 @@ class Player():
         while invalid_input:
             try:
                 user_input = input("Higher or lower(h/l)? ")
-                if user_input.lower() == "h":
+                user_input = user_input.lower()
+                if user_input == "h":
                     self.user_decision = user_input
                     invalid_input = False
                     return self.user_decision
-                elif user_input.lower() == "l":
+                elif user_input == "l":
                     self.user_decision = user_input
                     invalid_input = False
                     return self.user_decision
@@ -61,12 +62,12 @@ class Player():
             self.new_card = random.randint(1,14)
             if self.new_card != self.old_card:
                 copy = False
-        if self.user_decision.lower() == "h":
+        if self.user_decision == "h":
             if self.new_card > self.old_card:
                 self.score = self.score + 100
             else:
                 self.score = self.score - 75
-        elif self.user_decision.lower() == "l":
+        elif self.user_decision == "l":
             if self.new_card < self.old_card:
                 self.score = self.score + 100
             else:
