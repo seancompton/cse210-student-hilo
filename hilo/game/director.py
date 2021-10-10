@@ -5,27 +5,35 @@ from game.player import Player
 class Director():
 
     def __init__(self):
-        self.card = 0
-        self.previouse_card = 0
-        self.keep_playing = ""
         self.player = Player()
-
-        
-    #A function to start the game.
+   
     def start_game(self):
+        '''
+        Game loop
+        '''
         while self.player.keep_playing():
             self.do_input()
             self.do_updates()
             self.do_outputs()
-            print()
-            print()
 
     def do_input(self):
+        '''
+        Deals card and gets players guess.
+        '''
         self.player.deal_card()
         self.player.player_guess()
 
     def do_updates(self):
+        '''
+        Calculates score
+        '''
         self.player.calculate_score()
 
     def do_outputs(self):
-        pass
+        '''
+        Displays the new card and their new score.
+        '''
+        print(f"The new card is {self.player.new_card}")
+        print(f"Your score is: {self.player.score}")
+        print()
+        print()
